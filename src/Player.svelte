@@ -3,6 +3,7 @@
 
   const dispatch = createEventDispatcher();
 
+  export let id;
   export let name;
   export let points;
   let showControls = false;
@@ -12,8 +13,8 @@
   const toggleControls = () => (showControls = !showControls);
   const removePlayer = e => {
     e.preventDefault();
-    dispatch("removeplayer", name);
-  }
+    dispatch("removeplayer", id);
+  };
 </script>
 
 <style>
@@ -24,16 +25,25 @@
   h3 {
     margin-bottom: 10px;
   }
+
+  .player-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 </style>
 
 <div class="card">
-  <h1>
-    {name}
-    <button class="btn btn-sm" on:click={toggleControls}>
-      {#if showControls}-{:else}+{/if}
-    </button>
-    <button class="btn btn-danger" on:click={removePlayer}>Remove</button>
-  </h1>
+  <header class="player-info">
+    <h1>
+      {name}
+      <button class="btn btn-sm" on:click={toggleControls}>
+        {#if showControls}-{:else}+{/if}
+      </button>
+      <button class="btn btn-danger btn-sm" on:click={removePlayer}>-</button>
+    </h1>
+    <p class="id">ID: {id}</p>
+  </header>
   <h3>Points: {points}</h3>
   {#if showControls}
     <button class="btn" on:click={addPoint}>+1</button>

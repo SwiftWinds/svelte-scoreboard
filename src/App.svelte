@@ -24,8 +24,9 @@
   };
 
   const removePlayer = e => {
-    const removedPlayer = e.detail;
-    players = players.filter(player => player.name !== removedPlayer);
+    const removedId = e.detail;
+    players.splice(removedId, 1);
+    players = players;
   };
 </script>
 
@@ -35,8 +36,12 @@
   {#if players.length === 0}
     <p>No Players</p>
   {:else}
-    {#each players as player}
-      <Player name={player.name} points={player.points}  on:removeplayer={removePlayer}/>
+    {#each players as player, i}
+      <Player
+        name={player.name}
+        points={player.points}
+        id={i}
+        on:removeplayer={removePlayer} />
     {/each}
   {/if}
 </div>
